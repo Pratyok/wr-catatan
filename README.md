@@ -1,5 +1,8 @@
 Fivem Notepad
 ===================================
+Requirement:
+esx_inventoryhud
+===================================
 ## Pictures
 ![alt text](https://i.imgur.com/hie3acy.png)
 ![alt text](https://i.imgur.com/XhMQFIj.jpg)
