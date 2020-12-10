@@ -4,7 +4,7 @@ local object = 0
 local TestLocalTable = {}
 local editingNotpadId = nil
 
-local NotepadText = "~g~E~s~ to read,~g~G~s~ to destroy"
+local NotepadText = "~g~E~s~ untuk membaca,~g~G~s~ untuk menghapus"
 
 Citizen.CreateThread(function()
     while ESX == nil do
@@ -31,14 +31,14 @@ end
 
 RegisterNUICallback('escape', function(data, cb)
     local text = data.text
-    TriggerEvent("lkrp_notepad:CloseNotepad")
+    TriggerEvent("wr-catatan:CloseNotepad")
 end)
 
 RegisterNUICallback('updating', function(data, cb)
     local text = data.text
     TriggerServerEvent("server:updateNote",editingNotpadId, text)
     editingNotpadId = nil
-    TriggerEvent("lkrp_notepad:CloseNotepad")
+    TriggerEvent("wr-catatan:CloseNotepad")
 end)
 
 RegisterNUICallback('droppingEmpty', function(data, cb)
@@ -49,18 +49,18 @@ RegisterNUICallback('dropping', function(data, cb)
     local text = data.text
     local location = GetEntityCoords(GetPlayerPed(-1))
     TriggerServerEvent("server:newNote",text,location["x"],location["y"],location["z"])
-    TriggerEvent("lkrp_notepad:CloseNotepad")
+    TriggerEvent("wr-catatan:CloseNotepad")
 end)
 
-RegisterNetEvent("lkrp_notepad:OpenNotepadGui")
-AddEventHandler("lkrp_notepad:OpenNotepadGui", function()
+RegisterNetEvent("wr-catatan:OpenNotepadGui")
+AddEventHandler("wr-catatan:OpenNotepadGui", function()
     if not isUiOpen then
         openGui()
     end
 end)
 
-RegisterNetEvent("lkrp_notepad:CloseNotepad")
-AddEventHandler("lkrp_notepad:CloseNotepad", function()
+RegisterNetEvent("wr-catatan:CloseNotepad")
+AddEventHandler("wr-catatan:CloseNotepad", function()
     SendNUIMessage({
         action = 'closeNotepad'
     })
@@ -76,8 +76,8 @@ AddEventHandler("lkrp_notepad:CloseNotepad", function()
     DeleteObject(secondaryprop)
 end)
 
-RegisterNetEvent('lkrp_notepad:note')
-AddEventHandler('lkrp_notepad:note', function()
+RegisterNetEvent('wr-catatan:note')
+AddEventHandler('wr-catatan:note', function()
     local player = PlayerPedId()
     local ad = "missheistdockssetup1clipboard@base"
                 
@@ -98,7 +98,7 @@ AddEventHandler('lkrp_notepad:note', function()
             local x,y,z = table.unpack(GetEntityCoords(player))
             prop = CreateObject(GetHashKey(prop_name), x, y, z+0.2,  true,  true, true)
             secondaryprop = CreateObject(GetHashKey(secondaryprop_name), x, y, z+0.2,  true,  true, true)
-            AttachEntityToEntity(prop, player, GetPedBoneIndex(player, 18905), 0.1, 0.02, 0.05, 10.0, 0.0, 0.0, true, true, false, true, 1, true) -- lkrp_notepadpad
+            AttachEntityToEntity(prop, player, GetPedBoneIndex(player, 18905), 0.1, 0.02, 0.05, 10.0, 0.0, 0.0, true, true, false, true, 1, true) -- wr-catatanpad
             AttachEntityToEntity(secondaryprop, player, GetPedBoneIndex(player, 58866), 0.12, 0.0, 0.001, -150.0, 0.0, 0.0, true, true, false, true, 1, true) -- pencil
             TaskPlayAnim( player, ad, "base", 8.0, 1.0, -1, 49, 0, 0, 0, 0 )
         end     
@@ -112,8 +112,8 @@ function loadAnimDict(dict)
     end
 end
 
-RegisterNetEvent('lkrp_notepad:updateNotes')
-AddEventHandler('lkrp_notepad:updateNotes', function(serverNotesPassed)
+RegisterNetEvent('wr-catatan:updateNotes')
+AddEventHandler('wr-catatan:updateNotes', function(serverNotesPassed)
     TestLocalTable = serverNotesPassed
 end)
 
@@ -133,7 +133,7 @@ function openGuiRead(text)
   local veh = GetVehiclePedIsUsing(GetPlayerPed(-1))
   if GetPedInVehicleSeat(veh, -1) ~= GetPlayerPed(-1) then
         SetPlayerControl(PlayerId(), 0, 0)
-        TriggerEvent("lkrp_notepad:note")
+        TriggerEvent("wr-catatan:note")
         isUiOpen = true
         Citizen.Trace("OPENING")
         SendNUIMessage({
