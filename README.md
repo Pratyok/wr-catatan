@@ -1,7 +1,7 @@
 Fivem Notepad
 ===================================
 Requirement:
-esx_inventoryhud
+**esx_inventoryhud**
 ===================================
 ## Pictures
 ![alt text](https://i.imgur.com/hie3acy.png)
