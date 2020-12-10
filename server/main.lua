@@ -5,31 +5,32 @@ TriggerEvent('server:LoadsNote')
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
 --#Delete comments to use from inventory
--- ESX.RegisterUsableItem('notepad', function(source)
---   local _source  = source
---   local xPlayer   = ESX.GetPlayerFromId(_source)
---   TriggerClientEvent('lkrp_notepad:note', _source)
---   TriggerClientEvent('lkrp_notepad:OpenNotepadGui', _source)
--- end)
+ ESX.RegisterUsableItem('notepad', function(source)
+   local _source  = source
+   local xPlayer   = ESX.GetPlayerFromId(_source)
+   TriggerClientEvent('wr-catatan:note', _source)
+   TriggerClientEvent('wr-catatan:OpenNotepadGui', _source)
+ end)
 
-TriggerEvent('es:addCommand', 'notes', function(source, args, user)
+--[[('es:addCommand', 'catat', function(source, args, user)
   local _source = source
   local xPlayer = ESX.GetPlayerFromId(_source)
   local item    = xPlayer.getInventoryItem('notepad').count
 if item > 0 then
-    TriggerClientEvent('lkrp_notepad:note', _source)
-    TriggerClientEvent('lkrp_notepad:OpenNotepadGui', _source)
+    TriggerClientEvent('wr-catatan:note', _source)
+    TriggerClientEvent('wr-catatan:OpenNotepadGui', _source)
     TriggerEvent('server:LoadsNote')
 else
      TriggerClientEvent('esx:showNotification', _source, 'You dont have notepad.')
+     exports[mythic_notify]SendAlert('error', 'tidak memiliki noe')
 end
     
-end, {help = "Open notepad if you have it!"})
+end, {help = "Open notepad if you have it!"})]]
 
 
 RegisterNetEvent("server:LoadsNote")
 AddEventHandler("server:LoadsNote", function()
-   TriggerClientEvent('lkrp_notepad:updateNotes', -1, savedNotes)
+   TriggerClientEvent('wr-catatan:updateNotes', -1, savedNotes)
 end)
 
 RegisterNetEvent("server:newNote")
